@@ -46,7 +46,7 @@ public class EventController {
     @RequestMapping(value = "/events", method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute(SessionAttributes.model_events, eventRepository.findAll());
-        SessionAttributes.setUserInModel(session, model);
+        SessionAttributes.setUserInModel(session, model, accountRepository.findAll());
         return "events";
     }
 

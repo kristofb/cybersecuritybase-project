@@ -78,4 +78,13 @@ public class Account extends AbstractPersistable<Long> {
         this.comments = comments;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj==null)return false;
+        if (! (obj instanceof Account)) return false;
+        Account ao = (Account)obj;
+        return getUsername()==ao.getUsername();
+    }
+
+    
 }

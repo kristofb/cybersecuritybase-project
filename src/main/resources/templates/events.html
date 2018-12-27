@@ -10,7 +10,7 @@
             <p>header with links etc</p>
         </header>
 
-        <h1>Here are the events you're invited to join</h1>
+        <h2>Here are the events you're invited to join</h2>
 
         <ul>
             <li th:each="event : ${events}">
@@ -29,11 +29,23 @@
             </li>
         </ul>
         <div th:if="${username!=null}" >
-            <span >Your comments:</span><br/>
+            <h2>Your Comments about the events, to share with other users</h2>
+            <span >Your comments:</span>
+            <span th:utext="${my_comments!=null}? ${my_comments}" ></span>
+            <br/>
             <form th:action="@{/account/comments}" th:method="POST">
-                <textarea id="comments" name="comments" th:utext="${my_comments!=null}? ${my_comments}" placeholder="Enter your comments here"/>
+                <textarea id="comments" name="comments" placeholder="Enter your new comments here"/>
                 <input type="submit" value="Submit my comments"/>
             </form><br/>
+        </div>
+        <div th:if="${other_comments!=null and not #lists.isEmpty(other_comments)}">
+            <h2>What the others are thinking</h2>
+            <ul>
+                <li th:each="comment : ${other_comments}">
+                    <span th:utext="|${comment.username} said|">name</span>: 
+                    <span th:utext="${comment.comments!=null}? ${comment.comments} : 'Nothing yet'">xx</span>
+                </li>
+            </ul>
         </div>
     </body>
 </html>

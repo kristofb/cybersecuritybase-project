@@ -52,6 +52,12 @@ public class AccountController {
         return "form-sign-in";
     }
 
+    @RequestMapping(value = "/sign-out", method = RequestMethod.GET)
+    public String loadFormSignOut() {
+        resetSession();
+        return "redirect:/events";
+    }
+
     @RequestMapping(value = "/sign-in", method = RequestMethod.POST)
     @Transactional
     public String submitFormSignIn(Model model, @RequestParam String username, @RequestParam String password) {
@@ -59,8 +65,8 @@ public class AccountController {
         Account account = accountRepository.findByUsername(username);
         if (account != null && encoder.matches(password, account.getPassword())) {
             session.setAttribute(SessionAttributes.session_user, account);
-            SessionAttributes.setUserInModel(session, model);
-            return "events";
+            SessionAttributes.setUserInModel(session, model, accountRepository.findAll());
+            return "redirect:/events";
         } else {
             return "redirect:/sign-in";
         }
@@ -78,6 +84,7 @@ public class AccountController {
             return "redirect:/sign-in";
         }
         account.setComments(comments);
+        accountRepository.saveAndFlush(account);
         return "redirect:/events";
 
     }
