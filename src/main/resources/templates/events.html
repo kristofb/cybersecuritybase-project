@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Events</title>
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+
+        <header th:replace="fragments/header :: header">
+            <p>header with links etc</p>
+        </header>
+
+        <h1>Here are the events you're invited to join</h1>
+
+        <ul>
+            <li th:each="event : ${events}">
+                <span th:text="${event.when}">event</span>: 
+                <span th:text="${event.name}">event</span>, 
+                <span th:text="${event.location}">location</span>, 
+                <span th:if="${reg_events!=null and #lists.contains(reg_events,event.id)}" style="color: white; background-color: darkmagenta">[registered]</span>
+                <form th:unless="${reg_events!=null and #lists.contains(reg_events,event.id)}" th:action="@{/events/register/{id}(id=${event.id})}" th:method="POST">
+                    <input type="submit" value="Join this event"/>
+                </form><br/>
+                <form th:if="${reg_events!=null and #lists.contains(reg_events,event.id)}" th:action="@{/events/register/{id}(id=${event.id})}" th:method="DELETE">
+                    <input type="submit" value="Cancel registration"/>
+                </form><br/>
+            </li>
+        </ul>
+
+    </body>
+</html>

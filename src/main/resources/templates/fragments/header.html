@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Event registration template</title>
+    </head>
+    <body>
+
+        <header th:fragment="header">
+            <p th:if="${username!=null}" th:utext="|Welcome ${username}|"></p>
+            <ul>
+                <li><a th:href="@{/events}">All events</a></li>
+                <li th:if="${username!=null}" ><a th:href="@{/my_registrations}">My registrations</a></li>
+                <li th:unless="${username!=null}" ><a th:href="@{/create-account}">Create an account</a></li>
+                <li th:unless="${username!=null}" ><a th:href="@{/sign-in}">Sign in with existing account</a></li>
+<!--                <li><a th:href="@{/items}">Items</a></li>
+                <li><a th:href="@{/cart}">Cart</a></li>
+                <li><a th:href="@{/orders}">Orders</a></li>-->
+            </ul>
+        </header>
+
+    </body>
+</html>
