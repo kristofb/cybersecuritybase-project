@@ -22,11 +22,13 @@ public class SessionAttributes {
     public static String model_username = "username";
     public static String model_events = "events";
     public static String model_registered_events = "reg_events";
+    private static String model_usercomments="my_comments";
 
     public static void setUserInModel(HttpSession session, Model model) {
         Account account = (Account) session.getAttribute(SessionAttributes.session_user);
         if (account != null && account instanceof Account) {
             model.addAttribute(SessionAttributes.model_username, account.getUsername());
+            model.addAttribute(SessionAttributes.model_usercomments, account.getComments());
 
             List<Event> registeredEvents = account.getRegisteredEvents();
             Vector<Long> ids = new Vector<Long>();

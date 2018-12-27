@@ -70,4 +70,16 @@ public class AccountController {
         session.removeAttribute(SessionAttributes.session_user);
     }
 
+    @RequestMapping(value = "/account/comments", method = RequestMethod.POST)
+    @Transactional
+    public String submitFormComments(@RequestParam String comments) {
+        Account account = SessionAttributes.getSessionUser(session);
+        if (account == null) {
+            return "redirect:/sign-in";
+        }
+        account.setComments(comments);
+        return "redirect:/events";
+
+    }
+
 }

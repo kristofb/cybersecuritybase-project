@@ -14,6 +14,10 @@ public class Account extends AbstractPersistable<Long> {
     @Column(unique = true)
     private String username;
     private String password;
+    /**
+     * User comments about anything
+     */
+    private String comments;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Event> registeredEvents;
@@ -64,6 +68,14 @@ public class Account extends AbstractPersistable<Long> {
             events.remove(event);
             setRegisteredEvents(events);
         }
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 
 }

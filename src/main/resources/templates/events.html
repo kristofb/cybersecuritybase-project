@@ -24,8 +24,16 @@
                 <form th:if="${reg_events!=null and #lists.contains(reg_events,event.id)}" th:action="@{/events/register/{id}(id=${event.id})}" th:method="DELETE">
                     <input type="submit" value="Cancel registration"/>
                 </form><br/>
+
+
             </li>
         </ul>
-
+        <div th:if="${username!=null}" >
+            <span >Your comments:</span><br/>
+            <form th:action="@{/account/comments}" th:method="POST">
+                <textarea id="comments" name="comments" th:utext="${my_comments!=null}? ${my_comments}" placeholder="Enter your comments here"/>
+                <input type="submit" value="Submit my comments"/>
+            </form><br/>
+        </div>
     </body>
 </html>
